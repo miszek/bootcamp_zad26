@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Match typer - add match</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{'mystyle.css'}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+</head>
+<body class="divstyle">
+  <h2 class="alert alert-primary center">Add match to bet</h2>
+  <table class="table table-hover myTable">
+    <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Team A</th>
+      <th scope="col">Team B</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <form th:action="|@{/addMatch}|" method="post" th:object="${newMatch}">
+        <td>
+          <input class="inputTxt" type="date" th:min="${minDate}" required name="date" th:value="*{date}">
+        </td>
+        <td>
+          <input class="inputTxt" type="text" required name="teamA" th:value="*{teamA}" maxlength="20">
+        </td>
+        <td>
+          <input class="inputTxt" type="text" required name="teamB" th:value="*{teamB}" maxlength="20">
+        </td>
+        <td>
+          <button class="btn btn-warning" type="submit">Add</button>
+        </td>
+      </form>
+    </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top: 40px" class="alert alert-primary">
+    <h5>
+      <p><b>Info:</b></p>
+    </h5>
+    <p>You can add match that will be played not earlier than tomorrow.</p>
+  </div>
+
+  <a th:href="@{/}" class="link-dark">Main menu</a>
+</body>
+</html>

@@ -1,0 +1,24 @@
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.myTable {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px  auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.divstyle {
+    width: 100%;
+    max-width: 1000px;
+    margin: 50px  auto;
+}
+
+.inputTxt {
+    width: 100%;
+    box-sizing: border-box;
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Match typer - main page</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{'mystyle.css'}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="divstyle">
+
+    <h2 class="alert alert-primary center">Matches table</h2>
+
+        <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item">
+                    <a th:class="${toBetMatches} eq false? 'nav-link active':'nav-link'" th:href="@{/?toBetMatches=false}">All</a>
+                </li>
+                <li class="nav-item">
+                    <a th:class="${toBetMatches} eq true? 'nav-link active':'nav-link'" th:href="@{/?toBetMatches=true}">To Bet</a>
+                </li>
+            </ul>
+        </div>
+
+        <table class="table table-hover myTable">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Team A</th>
+                    <th scope="col">Result</th>
+                    <th scope="col">Team B</th>
+                    <th scope="col">No of types</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="match: ${matchesList}">
+                    <td th:text="${match.date}"></td>
+                    <td th:text="${match.teamA}"></td>
+                    <td th:text="${match.result}"></td>
+                    <td th:text="${match.teamB}"></td>
+                    <td th:text="${match.getResultTypeList().size()}"></td>
+                    <td><form th:action="|@{/addBetForm}|" method="post" th:object="${match}">
+                        <button type="submit" class="btn btn-warning" name="id" th:value="${match.id}" th:hidden="((${match.date} le ${localDateNow}) or (${match.result} ne null) or (${match.result} eq ''))? true:false"><i>Bet</i></button></form>
+                    </td>
+                    <td><form th:action="|@{/checkResultsForm}|" method="post" th:object="${match}">
+                        <button type="submit" class="btn btn-success" name="id" th:value="${match.id}" th:hidden="((${match.result} eq null) or (${match.result} eq ''))? true:false"><i>Check Results</i></button></form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+            <h2 style="margin-top: 30px" class="alert alert-warning center" role="alert">The most popular match to bet</h2>
+                    <table class="table table-warning myTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Team A</th>
+                                <th scope="col">Team B</th>
+                                <th scope="col">No of types</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${mostPopularMatch} ne null">
+                                <td th:text="${mostPopularMatch.date}"></td>
+                                <td th:text="${mostPopularMatch.teamA}"></td>
+                                <td th:text="${mostPopularMatch.teamB}"></td>
+                                <td th:text="${mostPopularMatch.getResultTypeList().size()}"></td>
+                                <td><form th:action="|@{/addBetForm}|" method="post" th:object="${mostPopularMatch}">
+                                    <button type="submit" class="btn btn-warning" name="id" th:value="${mostPopularMatch.id}" th:disabled="((${mostPopularMatch.date} le ${localDateNow}) or (${mostPopularMatch.result} ne null) or (${mostPopularMatch.result} eq ''))? true:false"><i>Bet</i></button></form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+        <div style="margin-top: 40px" class="alert alert-primary">
+            <h5>
+                <p><b>Info:</b></p>
+            </h5>
+                <p>You can bet matches to be played tomorrow or later.</p>
+                <p>Results can be check if match result is present.</p>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin options
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/addMatchForm}">Add match</a></li>
+                <li><a class="dropdown-item" th:href="@{/deleteModifyMatchList}">Delete/Modify Match</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
