@@ -19,6 +19,9 @@
       <th scope="col">Date</th>
       <th scope="col">Team A</th>
       <th scope="col">Team B</th>
+      <th scope="col">Win A course</th>
+      <th scope="col">Win B course</th>
+      <th scope="col">Draw course</th>
       <th scope="col"></th>
     </tr>
     </thead>
@@ -26,13 +29,22 @@
     <tr>
       <form th:action="|@{/addMatch}|" method="post" th:object="${newMatch}">
         <td>
-          <input class="inputTxt" type="date" th:min="${minDate}" required name="date" th:value="*{date}">
+          <input class="inputTxt" type="date" th:min="${minDate}" required name="date" th:value="*{date}" autofocus>
         </td>
         <td>
           <input class="inputTxt" type="text" required name="teamA" th:value="*{teamA}" maxlength="20">
         </td>
         <td>
           <input class="inputTxt" type="text" required name="teamB" th:value="*{teamB}" maxlength="20">
+        </td>
+        <td>
+          <input class="inputTxt" type="number"  required name="winACourse" min="0" step="0.1" th:value="*{winACourse}">
+        </td>
+        <td>
+          <input class="inputTxt" type="number"  required name="drawCourse" min="0" step="0.1" th:value="*{drawCourse}">
+        </td>
+        <td>
+          <input class="inputTxt" type="number"  required name="winBCourse" min="0" step="0.1" th:value="*{winBCourse}">
         </td>
         <td>
           <button class="btn btn-warning" type="submit">Add</button>

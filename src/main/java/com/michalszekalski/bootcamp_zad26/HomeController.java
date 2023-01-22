@@ -3,18 +3,23 @@ package com.michalszekalski.bootcamp_zad26;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
 
     private MatchRepository matchRepository;
+    private final BetRepository betRepository;
 
-    public HomeController(MatchRepository matchRepository) {
+    public HomeController(MatchRepository matchRepository,
+                          BetRepository betRepository) {
         this.matchRepository = matchRepository;
+        this.betRepository = betRepository;
     }
 
     @GetMapping("/")
@@ -34,6 +39,37 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping("/enterBetIdForm")
+    public String enterBetId() {
+        return "enterBetIdForm";
+    }
+
+    @GetMapping("/checkPrize")
+    public String checkPrize(@RequestParam String betId, Model model) {
+        Optional<Bet> betOptional = betRepository.findByIdString(betId);
+        Bet bet;
+        if (betOptional.isPresent()) {
+            bet = betOptional.get();
+        } else {
+            model.addAttribute("betId", betId);
+            return "betNotFound";
+        }
+
+        Match match = bet.getMatch();
+        if (match.getResult() == null || match.getResult().equals("")) {
+            model.addAttribute("match", match.getTeamA() + " vs " + match.getTeamB());
+            model.addAttribute("betId", betId);
+            return "resultNotPresent";
+        }
+
+        Double prize = PrizeCounter.checkPrize(match, bet);
+
+        model.addAttribute("bet", bet);
+        model.addAttribute("match", match);
+        model.addAttribute("prize", prize);
+        return "displayPrize";
+    }
+
     private Match getMostPopularMatch(List<Match> matchesList) {
         Long maxId = 0L;
         int noOfResults = 0;
@@ -44,8 +80,7 @@ public class HomeController {
             }
         }
         if (maxId != 0) {
-            Match mostPopularMatch = matchRepository.findByIdIs(maxId);
-            return mostPopularMatch;
+            return matchRepository.findByIdIs(maxId);
         } else {
             return null;
         }

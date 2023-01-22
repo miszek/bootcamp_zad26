@@ -22,15 +22,46 @@ public class Match {
 
     private String result;
 
-    @OneToMany(mappedBy = "match", cascade = CascadeType.REMOVE)
-    private List<ResultType> resultTypeList;
+    private Double winACourse;
 
-    public List<ResultType> getResultTypeList() {
-        return resultTypeList;
+    private Double drawCourse;
+
+    private Double winBCourse;
+
+
+    public Double getWinACourse() {
+        return winACourse;
     }
 
-    public void setResultTypeList(List<ResultType> resultTypeList) {
-        this.resultTypeList = resultTypeList;
+    public void setWinACourse(Double winACourse) {
+        this.winACourse = winACourse;
+    }
+
+    public Double getDrawCourse() {
+        return drawCourse;
+    }
+
+    public void setDrawCourse(Double drawCourse) {
+        this.drawCourse = drawCourse;
+    }
+
+    public Double getWinBCourse() {
+        return winBCourse;
+    }
+
+    public void setWinBCourse(Double winBCourse) {
+        this.winBCourse = winBCourse;
+    }
+
+    @OneToMany(mappedBy = "match", cascade = CascadeType.REMOVE)
+    private List<Bet> betList;
+
+    public List<Bet> getResultTypeList() {
+        return betList;
+    }
+
+    public void setResultTypeList(List<Bet> betList) {
+        this.betList = betList;
     }
 
     public Long getId() {

@@ -6,42 +6,34 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
 public class MatchController {
 
     private MatchRepository matchRepository;
-    private ResultTypeRepository resultTypeRepository;
+    private BetRepository betRepository;
 
-    public MatchController(MatchRepository matchRepository, ResultTypeRepository resultTypeRepository) {
+    public MatchController(MatchRepository matchRepository, BetRepository betRepository) {
         this.matchRepository = matchRepository;
-        this.resultTypeRepository = resultTypeRepository;
+        this.betRepository = betRepository;
     }
 
     @PostMapping("/addBetForm")
     public String addBetForm(@RequestParam Long id, Model model) {
         Match matchToBet = matchRepository.findByIdIs(id);
         model.addAttribute("matchToBet", matchToBet);
-        model.addAttribute("type", new ResultType());
+        model.addAttribute("bet", new Bet());
         return "addBet";
     }
 
     @PostMapping("/addBet/{id}")
-    public String addBetForm(@PathVariable Long id, ResultType type) {
-        Match matchToType = matchRepository.findByIdIs(id);
-        type.setMatch(matchToType);
-        type.setId(null);
-        resultTypeRepository.save(type);
-        return "redirect:/";
-    }
-
-    @PostMapping("/checkResultsForm")
-    public String checkResultsForm(@RequestParam Long id, Model model) {
-        Match match = matchRepository.findByIdIs(id);
-        List<ResultType> results = resultTypeRepository.findAllByMatch(match);
-        model.addAttribute("match", match);
-        model.addAttribute("results", results);
-        return "resultsList";
+    public String addBetForm(@PathVariable Long id, Bet bet, Model model) {
+        Match matchToBet = matchRepository.findByIdIs(id);
+        bet.setMatch(matchToBet);
+        bet.setId(null);
+        bet.setIdString(IdGenerator.generate(id));
+        betRepository.save(bet);
+        model.addAttribute("matchToBet", matchToBet);
+        model.addAttribute("bet", bet);
+        return "betDisplay";
     }
 }

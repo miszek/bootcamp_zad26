@@ -35,8 +35,10 @@
                     <th scope="col">Team A</th>
                     <th scope="col">Result</th>
                     <th scope="col">Team B</th>
+                    <th scope="col">Win A course</th>
+                    <th scope="col">Draw course</th>
+                    <th scope="col">Win B course</th>
                     <th scope="col">No of types</th>
-                    <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -46,16 +48,25 @@
                     <td th:text="${match.teamA}"></td>
                     <td th:text="${match.result}"></td>
                     <td th:text="${match.teamB}"></td>
+                    <td th:text="${match.winACourse}"></td>
+                    <td th:text="${match.drawCourse}"></td>
+                    <td th:text="${match.winBCourse}"></td>
                     <td th:text="${match.getResultTypeList().size()}"></td>
-                    <td><form th:action="|@{/addBetForm}|" method="post" th:object="${match}">
-                        <button type="submit" class="btn btn-warning" name="id" th:value="${match.id}" th:hidden="((${match.date} le ${localDateNow}) or (${match.result} ne null) or (${match.result} eq ''))? true:false"><i>Bet</i></button></form>
+                    <td>
+                        <form th:action="|@{/addBetForm}|" method="post" th:object="${match}">
+                            <button type="submit" class="btn btn-warning" name="id" th:value="${match.id}" th:hidden="((${match.date} le ${localDateNow}) or (${match.result} ne null) or (${match.result} eq ''))? true:false"><i>Bet</i></button>
+                        </form>
                     </td>
-                    <td><form th:action="|@{/checkResultsForm}|" method="post" th:object="${match}">
-                        <button type="submit" class="btn btn-success" name="id" th:value="${match.id}" th:hidden="((${match.result} eq null) or (${match.result} eq ''))? true:false"><i>Check Results</i></button></form>
-                    </td>
+<!--                    <td><form th:action="|@{/checkResultsForm}|" method="post" th:object="${match}">-->
+<!--                        <button type="submit" class="btn btn-success" name="id" th:value="${match.id}" th:hidden="((${match.result} eq null) or (${match.result} eq ''))? true:false"><i>Check Results</i></button></form>-->
+<!--                    </td>-->
                 </tr>
             </tbody>
         </table>
+
+        <form th:action="|@{/enterBetIdForm}|" method="post">
+            <button type="submit" class="d-grid gap-2 col-8 mx-auto btn btn-success">Check Yout bet</button>
+        </form>
 
             <h2 style="margin-top: 30px" class="alert alert-warning center" role="alert">The most popular match to bet</h2>
                     <table class="table table-warning myTable">
@@ -64,6 +75,9 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">Team A</th>
                                 <th scope="col">Team B</th>
+                                <th scope="col">Win A course</th>
+                                <th scope="col">Draw course</th>
+                                <th scope="col">Win B course</th>
                                 <th scope="col">No of types</th>
                                 <th scope="col"></th>
                             </tr>
@@ -73,6 +87,9 @@
                                 <td th:text="${mostPopularMatch.date}"></td>
                                 <td th:text="${mostPopularMatch.teamA}"></td>
                                 <td th:text="${mostPopularMatch.teamB}"></td>
+                                <td th:text="${mostPopularMatch.winACourse}"></td>
+                                <td th:text="${mostPopularMatch.drawCourse}"></td>
+                                <td th:text="${mostPopularMatch.winBCourse}"></td>
                                 <td th:text="${mostPopularMatch.getResultTypeList().size()}"></td>
                                 <td><form th:action="|@{/addBetForm}|" method="post" th:object="${mostPopularMatch}">
                                     <button type="submit" class="btn btn-warning" name="id" th:value="${mostPopularMatch.id}" th:disabled="((${mostPopularMatch.date} le ${localDateNow}) or (${mostPopularMatch.result} ne null) or (${mostPopularMatch.result} eq ''))? true:false"><i>Bet</i></button></form>
