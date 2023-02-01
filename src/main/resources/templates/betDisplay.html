@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Match typer - bet display</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{'mystyle.css'}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+</head>
+<body class="divstyle">
+
+    <h2 class="alert alert-primary center">Your bet</h2>
+    <table class="table table-hover myTable">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Team A</th>
+          <th scope="col">Team B</th>
+          <th scope="col">Winner</th>
+          <th scope="col">Bet value</th>
+          <th scope="col">Typer name</th>
+          <th scope="col">Bet id</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+          <td th:text="${matchToBet.date}"></td>
+          <td th:text="${matchToBet.teamA}"></td>
+          <td th:text="${matchToBet.teamB}"></td>
+          <td th:text="${bet.winner.getDescription()}"></td>
+          <td th:text="${bet.betValue}"></td>
+          <td th:text="${bet.typerName}"></td>
+          <td class="user-select-all" th:text="${bet.idString}"></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 40px" class="alert alert-primary">
+      <h5>
+        <p><b>Info:</b></p>
+      </h5>
+      <p>Remember bet id to check if You won.</p>
+    </div>
+
+    <a th:href="@{/}" class="link-dark">Main menu</a>
+
+</body>
+</html>

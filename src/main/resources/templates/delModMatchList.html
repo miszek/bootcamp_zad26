@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Match typer - modify/delete match</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{'mystyle.css'}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+</head>
+<body class="divstyle">
+  <h2 class="alert alert-primary center">Choose a match to modify/delete</h2>
+  <table class="table table-hover myTable">
+      <thead>
+          <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Team A</th>
+              <th scope="col">Result</th>
+              <th scope="col">Team B</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr th:each="match: ${matchesList}">
+              <td th:text="${match.date}"></td>
+              <td th:text="${match.teamA}"></td>
+              <form th:action="|@{/modifyMatchForm}|" method="post" th:object="${match}">
+                  <td>
+                      <input class="inputTxt" type="text" th:value="${match.result}" pattern="([0-9]+:[0-9]+){0,1}" name="matchResult">
+                  </td>
+                  <td th:text="${match.teamB}"></td>
+                  <td>
+                      <button class="btn btn-primary" type="submit" name="matchId" th:value="${match.id}" th:hidden="(${match.date} gt ${localDateNow})? true:false"><i>Modify result</i></button>
+                  </td>
+              </form>
+              <td><form th:action="|@{/deleteMatch}|" method="post" th:object="${match}">
+                  <button class="btn btn-danger" type="submit" name="matchId" th:value="${match.id}"><i>Delete match</i></button></form>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+
+  <div style="margin-top: 40px" class="alert alert-primary">
+      <h5>
+          <p><b>Info:</b></p>
+      </h5>
+      <p>You can modify result only if match was already played.</p>
+  </div>
+  <a th:href="@{/}" class="link-dark">Main menu</a>
+
+</body>
+</html>
