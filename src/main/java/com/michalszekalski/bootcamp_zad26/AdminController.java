@@ -4,11 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     private MatchRepository matchRepository;
@@ -27,7 +29,7 @@ public class AdminController {
     @PostMapping("/addMatch")
     public String addMatch(Match match) {
         matchRepository.save(match);
-        return "redirect:/";
+        return "redirect:/user/panel";
     }
 
     @GetMapping("/deleteModifyMatchList")
@@ -47,12 +49,12 @@ public class AdminController {
         }
         matchToEdit.setResult(matchResult);
         matchRepository.save(matchToEdit);
-        return "redirect:/deleteModifyMatchList";
+        return "redirect:/admin/deleteModifyMatchList";
     }
 
     @PostMapping("/deleteMatch")
     public String deleteMatch(Long matchId) {
         matchRepository.deleteById(matchId);
-        return "redirect:/deleteModifyMatchList";
+        return "redirect:/admin/deleteModifyMatchList";
     }
 }

@@ -13,11 +13,12 @@
 </head>
 <body>
   <div class="divstyle">
+      <a href="#" th:href="@{/logout}">Logout</a>
 
-    <h2 class="alert alert-danger center" th:text="|Match ${match} hasn't been played yet or its' result hasn't been entered|"/>
+      <h2 class="alert alert-danger center" th:text="|Match ${match} hasn't been played yet or its' result hasn't been entered|"/>
 
-    <a th:href="@{/}" class="link-dark">Main menu</a>
-    <a th:href="@{/enterBetIdForm}" class="link-dark">Check Your bet</a>
+    <a th:href="@{/user}" class="link-dark">Main menu</a>
+    <a th:href="@{/user/enterBetIdForm}" class="link-dark">Check Your bet</a>
   </div>
 
 </body>

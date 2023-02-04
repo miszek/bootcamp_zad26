@@ -13,15 +13,16 @@
 </head>
 <body>
   <div class="divstyle">
+    <a href="#" th:href="@{/logout}">Logout</a>
 
     <h2 class="alert alert-primary center">Enter Your bet id</h2>
-      <form th:action="@{/checkPrize}" method="get">
+      <form th:action="@{/user/checkPrize}" method="get">
         <label for="betId">Bet Id: </label>
         <input style="margin: 10px  auto;" class="inputTxt" id="betId" type="text" name="betId" required autofocus>
         <button style="margin: 10px  auto;" class="btn btn-warning" type="submit">Check Your bet</button>
       </form>
 
-    <a th:href="@{/}" class="link-dark">Main menu</a>
+    <a th:href="@{/user}" class="link-dark">Main menu</a>
   </div>
 
 </body>

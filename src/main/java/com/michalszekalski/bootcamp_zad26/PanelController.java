@@ -2,27 +2,26 @@ package com.michalszekalski.bootcamp_zad26;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class HomeController {
+@RequestMapping("/user")
+public class PanelController {
 
     private MatchRepository matchRepository;
     private final BetRepository betRepository;
 
-    public HomeController(MatchRepository matchRepository,
-                          BetRepository betRepository) {
+    public PanelController(MatchRepository matchRepository,
+                           BetRepository betRepository) {
         this.matchRepository = matchRepository;
         this.betRepository = betRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String home(@RequestParam(required = false, defaultValue = "false") Boolean toBetMatches, Model model) {
         List<Match> matchesList;
         if (!toBetMatches) {
@@ -36,7 +35,7 @@ public class HomeController {
         model.addAttribute("toBetMatches", toBetMatches);
         Match mostPopularMatch = getMostPopularMatch(matchesList);
         model.addAttribute("mostPopularMatch", mostPopularMatch);
-        return "home";
+        return "panel";
     }
 
     @RequestMapping("/enterBetIdForm")
@@ -84,5 +83,25 @@ public class HomeController {
         } else {
             return null;
         }
+    }
+
+    @PostMapping("/addBetForm")
+    public String addBetForm(@RequestParam Long id, Model model) {
+        Match matchToBet = matchRepository.findByIdIs(id);
+        model.addAttribute("matchToBet", matchToBet);
+        model.addAttribute("bet", new Bet());
+        return "addBet";
+    }
+
+    @PostMapping("/addBet/{id}")
+    public String addBetForm(@PathVariable Long id, Bet bet, Model model) {
+        Match matchToBet = matchRepository.findByIdIs(id);
+        bet.setMatch(matchToBet);
+        bet.setId(null);
+        bet.setIdString(IdGenerator.generate(id));
+        betRepository.save(bet);
+        model.addAttribute("matchToBet", matchToBet);
+        model.addAttribute("bet", bet);
+        return "betDisplay";
     }
 }
