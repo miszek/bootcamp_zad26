@@ -1,5 +1,11 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcamp_zad26.web;
 
+import com.michalszekalski.bootcamp_zad26.bet.Bet;
+import com.michalszekalski.bootcamp_zad26.bet.BetRepository;
+import com.michalszekalski.bootcamp_zad26.bet.IdGenerator;
+import com.michalszekalski.bootcamp_zad26.bet.PrizeCounter;
+import com.michalszekalski.bootcamp_zad26.match.Match;
+import com.michalszekalski.bootcamp_zad26.match.MatchRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +16,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
-public class PanelController {
+class PanelController {
 
     private MatchRepository matchRepository;
     private final BetRepository betRepository;

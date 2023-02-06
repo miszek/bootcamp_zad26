@@ -1,4 +1,4 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcamp_zad26.bet;
 
 import java.time.LocalTime;
 

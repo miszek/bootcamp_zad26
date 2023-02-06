@@ -1,6 +1,5 @@
 package com.michalszekalski.bootcamp_zad26.user;
 
-
 import jakarta.persistence.*;
 
 @Entity

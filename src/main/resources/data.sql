@@ -29,8 +29,10 @@ VALUES
 INSERT INTO
     application_user (first_name, last_name, email, password)
 VALUES
-    ('Piotr', 'Nowak', 'admin@example.com', '{noop}test'),
-    ('Jan', 'Kowalski', 'jank@example.com', '{noop}test');
+    ('Piotr', 'Nowak', 'admin@example.com', '{bcrypt}$2a$10$bZfv/QJI2PMTQdF6bw64Gus2dUniEtheVktLPmKZugPHSxEENCEVO'),
+    ('Jan', 'Kowalski', 'user@example.com', '{bcrypt}$2a$10$bZfv/QJI2PMTQdF6bw64Gus2dUniEtheVktLPmKZugPHSxEENCEVO'),
+    ('Marek', 'Markowski', 'admin2@example.com', '{bcrypt}$2a$10$bZfv/QJI2PMTQdF6bw64Gus2dUniEtheVktLPmKZugPHSxEENCEVO'),
+    ('Andrzej', 'Andrzejewski', 'user2@example.com', '{bcrypt}$2a$10$bZfv/QJI2PMTQdF6bw64Gus2dUniEtheVktLPmKZugPHSxEENCEVO');
 
 INSERT INTO
     user_role (name, description)
@@ -42,4 +44,8 @@ INSERT INTO
     user_roles (user_id, role_id)
 VALUES
     (1, 1),
-    (2, 2);
+    (2, 2),
+    (2, 1),
+    (3, 1),
+    (3, 2),
+    (4, 2);

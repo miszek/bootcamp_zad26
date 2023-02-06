@@ -1,22 +1,29 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcamp_zad26.web;
 
+import com.michalszekalski.bootcamp_zad26.match.Match;
+import com.michalszekalski.bootcamp_zad26.match.MatchRepository;
+import com.michalszekalski.bootcamp_zad26.user.UserRegistrationDto;
+import com.michalszekalski.bootcamp_zad26.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+class AdminController {
 
     private MatchRepository matchRepository;
+    private UserService userService;
 
-    public AdminController(MatchRepository matchRepository) {
+    public AdminController(MatchRepository matchRepository, UserService userService) {
         this.matchRepository = matchRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/addMatchForm")
@@ -56,5 +63,18 @@ public class AdminController {
     public String deleteMatch(Long matchId) {
         matchRepository.deleteById(matchId);
         return "redirect:/admin/deleteModifyMatchList";
+    }
+
+    @GetMapping("/viewUsers")
+    public String usersList(Model model) {
+        List<UserRegistrationDto> usersList = userService.findAllUsersExceptCurrent();
+        model.addAttribute("userList", usersList);
+        return "usersListForm";
+    }
+
+    @GetMapping("/manageRoles")
+    public String manageRoles(@RequestParam String email) {
+        userService.addRemoveAdminRole(email);
+        return "redirect:viewUsers";
     }
 }

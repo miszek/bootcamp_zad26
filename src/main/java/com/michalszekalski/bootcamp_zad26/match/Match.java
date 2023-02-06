@@ -1,5 +1,6 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcamp_zad26.match;
 
+import com.michalszekalski.bootcamp_zad26.bet.Bet;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
