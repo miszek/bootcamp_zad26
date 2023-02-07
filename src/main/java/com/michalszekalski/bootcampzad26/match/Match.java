@@ -1,6 +1,6 @@
-package com.michalszekalski.bootcamp_zad26.match;
+package com.michalszekalski.bootcampzad26.match;
 
-import com.michalszekalski.bootcamp_zad26.bet.Bet;
+import com.michalszekalski.bootcampzad26.bet.Bet;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,7 +28,6 @@ public class Match {
     private Double drawCourse;
 
     private Double winBCourse;
-
 
     public Double getWinACourse() {
         return winACourse;

@@ -1,4 +1,4 @@
-package com.michalszekalski.bootcamp_zad26.user;
+package com.michalszekalski.bootcampzad26.user;
 
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -77,7 +77,7 @@ public class UserService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not found", email)));
         UserRole adminRole = userRoleRepository.findByName("ADMIN").orElseThrow(() -> new UsernameNotFoundException("Role not found"));
         UserRole userRole = userRoleRepository.findByName("USER").orElseThrow(() -> new UsernameNotFoundException("Role not found"));
-        if(user.getRoles().contains(adminRole)) {
+        if (user.getRoles().contains(adminRole)) {
             user.getRoles().remove(adminRole);
         } else {
             user.getRoles().add(adminRole);

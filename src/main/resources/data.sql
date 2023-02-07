@@ -29,10 +29,10 @@ VALUES
 INSERT INTO
     application_user (first_name, last_name, email, password)
 VALUES
-    ('Piotr', 'Nowak', 'admin@example.com', '{bcrypt}$2a$10$bZfv/QJI2PMTQdF6bw64Gus2dUniEtheVktLPmKZugPHSxEENCEVO'),
-    ('Jan', 'Kowalski', 'user@example.com', '{bcrypt}$2a$10$bZfv/QJI2PMTQdF6bw64Gus2dUniEtheVktLPmKZugPHSxEENCEVO'),
-    ('Marek', 'Markowski', 'admin2@example.com', '{bcrypt}$2a$10$bZfv/QJI2PMTQdF6bw64Gus2dUniEtheVktLPmKZugPHSxEENCEVO'),
-    ('Andrzej', 'Andrzejewski', 'user2@example.com', '{bcrypt}$2a$10$bZfv/QJI2PMTQdF6bw64Gus2dUniEtheVktLPmKZugPHSxEENCEVO');
+    ('Piotr', 'Nowak', 'admin@example.com', '{noop}test'),
+    ('Jan', 'Kowalski', 'user@example.com', '{noop}test'),
+    ('Marek', 'Markowski', 'admin2@example.com', '{noop}test'),
+    ('Andrzej', 'Andrzejewski', 'user2@example.com', '{noop}test');
 
 INSERT INTO
     user_role (name, description)

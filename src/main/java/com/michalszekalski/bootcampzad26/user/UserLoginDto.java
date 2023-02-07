@@ -1,4 +1,4 @@
-package com.michalszekalski.bootcamp_zad26.user;
+package com.michalszekalski.bootcampzad26.user;
 
 import java.util.Set;
 

@@ -1,13 +1,13 @@
-package com.michalszekalski.bootcamp_zad26.user;
+package com.michalszekalski.bootcampzad26.user;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class UserRegistrationDto {
-        private String email;
-        private String password;
-        private String firstName;
-        private String lastName;
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
 
     public Set<String> getRoles() {
         return roles;

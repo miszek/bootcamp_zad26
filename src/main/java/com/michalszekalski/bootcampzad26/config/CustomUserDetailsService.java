@@ -1,7 +1,7 @@
-package com.michalszekalski.bootcamp_zad26.config;
+package com.michalszekalski.bootcampzad26.config;
 
-import com.michalszekalski.bootcamp_zad26.user.UserLoginDto;
-import com.michalszekalski.bootcamp_zad26.user.UserService;
+import com.michalszekalski.bootcampzad26.user.UserLoginDto;
+import com.michalszekalski.bootcampzad26.user.UserService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

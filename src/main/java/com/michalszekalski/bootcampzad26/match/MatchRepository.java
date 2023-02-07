@@ -1,4 +1,4 @@
-package com.michalszekalski.bootcamp_zad26.match;
+package com.michalszekalski.bootcampzad26.match;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

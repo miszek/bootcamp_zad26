@@ -1,4 +1,4 @@
-package com.michalszekalski.bootcamp_zad26.config;
+package com.michalszekalski.bootcampzad26.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -13,23 +13,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests
-                (requests -> requests
-                        .requestMatchers(PathRequest.toH2Console()).permitAll()
-                        .requestMatchers("/img/**", "/styles/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/register", "/confirmation").permitAll()
-                        .anyRequest().authenticated()
-
-                );
-        http.formLogin
-                (login ->login
-                        .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/user",true));
+        http.authorizeHttpRequests(requests -> requests
+            .requestMatchers(PathRequest.toH2Console()).permitAll()
+            .requestMatchers("/img/**", "/styles/**").permitAll()
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .requestMatchers("/").permitAll()
+            .requestMatchers("/register", "/confirmation").permitAll()
+            .anyRequest().authenticated()
+        );
+        http.formLogin(login -> login
+            .loginPage("/login").permitAll()
+            .defaultSuccessUrl("/user", true));
         http.logout(logout -> logout
-                .logoutSuccessUrl("/"));
-        http.csrf().disable();
+            .logoutSuccessUrl("/"));
         http.headers().frameOptions().disable();
         return http.build();
     }

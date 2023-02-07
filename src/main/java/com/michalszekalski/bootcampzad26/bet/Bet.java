@@ -1,7 +1,7 @@
-package com.michalszekalski.bootcamp_zad26.bet;
+package com.michalszekalski.bootcampzad26.bet;
 
-import com.michalszekalski.bootcamp_zad26.match.Winner;
-import com.michalszekalski.bootcamp_zad26.match.Match;
+import com.michalszekalski.bootcampzad26.match.Winner;
+import com.michalszekalski.bootcampzad26.match.Match;
 import jakarta.persistence.*;
 
 @Entity
@@ -57,7 +57,6 @@ public class Bet {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public String getTyperName() {
         return typerName;

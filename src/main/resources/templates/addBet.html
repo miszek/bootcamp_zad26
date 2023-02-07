@@ -25,7 +25,6 @@
           <th scope="col">Team B</th>
           <th scope="col">Winner</th>
           <th scope="col">Bet value</th>
-          <th scope="col">Typer name</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -37,14 +36,11 @@
           <td th:text="${matchToBet.teamB}"></td>
           <td>
             <select class="inputTxt" th:field="*{winner}">
-              <option th:each="winnerVal:${T(com.michalszekalski.bootcamp_zad26.Winner).values()}" th:text="${winnerVal.getDescription()}" th:value="${winnerVal}">
+              <option th:each="winnerVal:${T(com.michalszekalski.bootcampzad26.match.Winner).values()}" th:text="${winnerVal.getDescription()}" th:value="${winnerVal}">
             </select>
           </td>
           <td>
             <input class="inputTxt" type="number" step="1" th:min="1" name="betValue" required th:value="*{betValue}" autofocus>
-          </td>
-          <td>
-            <input class="inputTxt" type="text" name="typerName" required th:value="*{typerName}" maxlength="20">
           </td>
           <td>
             <button type="submit" class="btn btn-warning">Bet</button>

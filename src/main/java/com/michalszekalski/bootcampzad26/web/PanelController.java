@@ -1,11 +1,12 @@
-package com.michalszekalski.bootcamp_zad26.web;
+package com.michalszekalski.bootcampzad26.web;
 
-import com.michalszekalski.bootcamp_zad26.bet.Bet;
-import com.michalszekalski.bootcamp_zad26.bet.BetRepository;
-import com.michalszekalski.bootcamp_zad26.bet.IdGenerator;
-import com.michalszekalski.bootcamp_zad26.bet.PrizeCounter;
-import com.michalszekalski.bootcamp_zad26.match.Match;
-import com.michalszekalski.bootcamp_zad26.match.MatchRepository;
+import com.michalszekalski.bootcampzad26.bet.Bet;
+import com.michalszekalski.bootcampzad26.bet.BetRepository;
+import com.michalszekalski.bootcampzad26.bet.IdGenerator;
+import com.michalszekalski.bootcampzad26.bet.PrizeCounter;
+import com.michalszekalski.bootcampzad26.match.Match;
+import com.michalszekalski.bootcampzad26.match.MatchRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +80,8 @@ class PanelController {
         Long maxId = 0L;
         int noOfResults = 0;
         for (Match match : matchesList) {
-            if (match.getDate().isAfter(LocalDate.now()) && (match.getResult() == null || match.getResult().equals("")) && match.getResultTypeList().size() > noOfResults) {
+            if (match.getDate().isAfter(LocalDate.now()) && (match.getResult() == null
+                || match.getResult().equals("")) && match.getResultTypeList().size() > noOfResults) {
                 maxId = match.getId();
                 noOfResults = match.getResultTypeList().size();
             }
@@ -105,6 +107,7 @@ class PanelController {
         bet.setMatch(matchToBet);
         bet.setId(null);
         bet.setIdString(IdGenerator.generate(id));
+        bet.setTyperName(SecurityContextHolder.getContext().getAuthentication().getName());
         betRepository.save(bet);
         model.addAttribute("matchToBet", matchToBet);
         model.addAttribute("bet", bet);

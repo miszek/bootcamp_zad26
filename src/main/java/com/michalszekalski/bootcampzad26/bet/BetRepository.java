@@ -1,6 +1,6 @@
-package com.michalszekalski.bootcamp_zad26.bet;
+package com.michalszekalski.bootcampzad26.bet;
 
-import com.michalszekalski.bootcamp_zad26.match.Match;
+import com.michalszekalski.bootcampzad26.match.Match;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

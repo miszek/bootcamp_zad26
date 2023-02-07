@@ -1,7 +1,7 @@
-package com.michalszekalski.bootcamp_zad26.web;
+package com.michalszekalski.bootcampzad26.web;
 
-import com.michalszekalski.bootcamp_zad26.user.UserRegistrationDto;
-import com.michalszekalski.bootcamp_zad26.user.UserService;
+import com.michalszekalski.bootcampzad26.user.UserRegistrationDto;
+import com.michalszekalski.bootcampzad26.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcampzad26;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
