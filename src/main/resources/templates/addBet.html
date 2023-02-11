@@ -2,9 +2,9 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Match typer - add bet</title>
+    <title>Football bet - add bet</title>
 
-  <link rel="stylesheet" type="text/css" th:href="@{'mystyle.css'}">
+  <link rel="stylesheet" type="text/css" th:href="@{/styles/mystyle.css}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -12,6 +12,8 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+  <header th:replace="fragments::header"></header>
+
   <div class="divstyle">
 
     <h2 class="alert alert-primary center">Make Your bet</h2>
@@ -23,26 +25,22 @@
           <th scope="col">Team B</th>
           <th scope="col">Winner</th>
           <th scope="col">Bet value</th>
-          <th scope="col">Typer name</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
       <tr>
-        <form th:action="|/addBet/${matchToBet.id}|" method="post" th:object="${bet}">
+        <form th:action="|/user/addBet/${matchToBet.id}|" method="post" th:object="${bet}">
           <td th:text="${matchToBet.date}"></td>
           <td th:text="${matchToBet.teamA}"></td>
           <td th:text="${matchToBet.teamB}"></td>
           <td>
             <select class="inputTxt" th:field="*{winner}">
-              <option th:each="winnerVal:${T(com.michalszekalski.bootcamp_zad26.Winner).values()}" th:text="${winnerVal.getDescription()}" th:value="${winnerVal}">
+              <option th:each="winnerVal:${T(com.michalszekalski.bootcampzad26.match.Winner).values()}" th:text="${winnerVal.getDescription()}" th:value="${winnerVal}">
             </select>
           </td>
           <td>
             <input class="inputTxt" type="number" step="1" th:min="1" name="betValue" required th:value="*{betValue}" autofocus>
-          </td>
-          <td>
-            <input class="inputTxt" type="text" name="typerName" required th:value="*{typerName}" maxlength="20">
           </td>
           <td>
             <button type="submit" class="btn btn-warning">Bet</button>
@@ -52,7 +50,7 @@
       </tbody>
     </table>
 
-    <a th:href="@{/}" class="link-dark">Main menu</a>
+    <a th:href="@{/user}" class="link-dark">Main menu</a>
   </div>
 
 </body>

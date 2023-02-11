@@ -1,20 +1,29 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcampzad26.web;
 
+import com.michalszekalski.bootcampzad26.match.Match;
+import com.michalszekalski.bootcampzad26.match.MatchRepository;
+import com.michalszekalski.bootcampzad26.user.UserRegistrationDto;
+import com.michalszekalski.bootcampzad26.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-public class AdminController {
+@RequestMapping("/admin")
+class AdminController {
 
     private MatchRepository matchRepository;
+    private UserService userService;
 
-    public AdminController(MatchRepository matchRepository) {
+    public AdminController(MatchRepository matchRepository, UserService userService) {
         this.matchRepository = matchRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/addMatchForm")
@@ -27,7 +36,7 @@ public class AdminController {
     @PostMapping("/addMatch")
     public String addMatch(Match match) {
         matchRepository.save(match);
-        return "redirect:/";
+        return "redirect:/user/panel";
     }
 
     @GetMapping("/deleteModifyMatchList")
@@ -47,12 +56,25 @@ public class AdminController {
         }
         matchToEdit.setResult(matchResult);
         matchRepository.save(matchToEdit);
-        return "redirect:/deleteModifyMatchList";
+        return "redirect:/admin/deleteModifyMatchList";
     }
 
     @PostMapping("/deleteMatch")
     public String deleteMatch(Long matchId) {
         matchRepository.deleteById(matchId);
-        return "redirect:/deleteModifyMatchList";
+        return "redirect:/admin/deleteModifyMatchList";
+    }
+
+    @GetMapping("/viewUsers")
+    public String usersList(Model model) {
+        List<UserRegistrationDto> usersList = userService.findAllUsersExceptCurrent();
+        model.addAttribute("userList", usersList);
+        return "usersListForm";
+    }
+
+    @GetMapping("/manageRoles")
+    public String manageRoles(@RequestParam String email) {
+        userService.addRemoveAdminRole(email);
+        return "redirect:viewUsers";
     }
 }

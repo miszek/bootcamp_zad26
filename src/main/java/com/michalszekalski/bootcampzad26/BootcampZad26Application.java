@@ -1,4 +1,4 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcampzad26;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

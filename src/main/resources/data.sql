@@ -25,3 +25,27 @@ VALUES
     (130, 'waldekg',6, 'WINA', '2319506'),
     (80, 'romeks',6, 'WINB', '2319516'),
     (45, 'romeks',5,'DRAW', '2319505');
+
+INSERT INTO
+    application_user (first_name, last_name, email, password)
+VALUES
+    ('Piotr', 'Nowak', 'admin@example.com', '{noop}test'),
+    ('Jan', 'Kowalski', 'user@example.com', '{noop}test'),
+    ('Marek', 'Markowski', 'admin2@example.com', '{noop}test'),
+    ('Andrzej', 'Andrzejewski', 'user2@example.com', '{noop}test');
+
+INSERT INTO
+    user_role (name, description)
+VALUES
+    ('ADMIN', 'pełen dostęp'),
+    ('USER', 'dostęp do panelu i opcji usera');
+
+INSERT INTO
+    user_roles (user_id, role_id)
+VALUES
+    (1, 1),
+    (2, 2),
+    (2, 1),
+    (3, 1),
+    (3, 2),
+    (4, 2);

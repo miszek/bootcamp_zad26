@@ -1,9 +1,9 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcampzad26.match;
 
 public enum Winner {
-    WINA ("Team A"),
-    WINB ("Team B"),
-    DRAW ("Draw");
+    WINA("Team A"),
+    WINB("Team B"),
+    DRAW("Draw");
 
     private final String description;
 

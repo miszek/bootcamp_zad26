@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" th:href="@{/styles/mystyle.css'}">
+
+</head>
+<body>
+<header class="userInfo" th:fragment="header">
+  <p th:text="|You are logged as: ${#authentication.name} ${#authentication.principal.authorities}|"></p>
+  <a href="#" th:href="@{/logout}">Logout</a>
+  <a href="#" th:href="@{/user/userCredentials}">User credentials</a>
+</header>
+
+</body>
+</html>

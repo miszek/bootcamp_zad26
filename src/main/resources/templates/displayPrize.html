@@ -2,9 +2,9 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Match typer - check prize</title>
+    <title>Football bet - check prize</title>
 
-    <link rel="stylesheet" type="text/css" th:href="@{'mystyle.css'}">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/mystyle.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -12,6 +12,8 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="divstyle">
+    <header th:replace="fragments::header"></header>
+
     <h2 th:text="|Bet: ${bet.idString}|"></h2>
     <h2 class="alert alert-primary center">Match</h2>
     <table class="table table-hover myTable">
@@ -55,8 +57,8 @@
 
     <h2 th:text="|Your prize: ${prize} PLN|"/>
 
-    <a th:href="@{/}" class="link-dark">Main menu</a>
-    <a th:href="@{/enterBetIdForm}" class="link-dark">Check Your bet</a>
+    <a th:href="@{/user}" class="link-dark">Main menu</a>
+    <a th:href="@{/user/enterBetIdForm}" class="link-dark">Check Your bet</a>
 
 </body>
 </html>

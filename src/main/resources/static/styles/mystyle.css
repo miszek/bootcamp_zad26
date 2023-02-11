@@ -1,0 +1,79 @@
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.myTable {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 1200px;
+    margin: 10px  auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.divstyle {
+    width: 100%;
+    max-width: 1200px;
+    margin: 50px  auto;
+}
+
+.userInfo {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.inputTxt {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.center_img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
+}
+
+.center_reg_form {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+    text-align: center;
+    border: 3px solid green;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+    align-items: center;
+}
+
+.lock-icon {
+    display: block;
+}
+
+.login-header,
+.lock-icon,
+.form-item {
+    text-align: center;
+}
+
+.form-item {
+    margin: 4px 0;
+    width: 100%;
+}
+
+.scaled-image {
+    max-width: 100%;
+}

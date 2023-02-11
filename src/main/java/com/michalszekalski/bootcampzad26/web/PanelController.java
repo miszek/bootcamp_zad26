@@ -1,28 +1,34 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcampzad26.web;
 
+import com.michalszekalski.bootcampzad26.bet.Bet;
+import com.michalszekalski.bootcampzad26.bet.BetRepository;
+import com.michalszekalski.bootcampzad26.bet.IdGenerator;
+import com.michalszekalski.bootcampzad26.bet.PrizeCounter;
+import com.michalszekalski.bootcampzad26.match.Match;
+import com.michalszekalski.bootcampzad26.match.MatchRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class HomeController {
+@RequestMapping("/user")
+class PanelController {
 
     private MatchRepository matchRepository;
     private final BetRepository betRepository;
 
-    public HomeController(MatchRepository matchRepository,
-                          BetRepository betRepository) {
+    public PanelController(MatchRepository matchRepository,
+                           BetRepository betRepository) {
         this.matchRepository = matchRepository;
         this.betRepository = betRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String home(@RequestParam(required = false, defaultValue = "false") Boolean toBetMatches, Model model) {
         List<Match> matchesList;
         if (!toBetMatches) {
@@ -36,7 +42,7 @@ public class HomeController {
         model.addAttribute("toBetMatches", toBetMatches);
         Match mostPopularMatch = getMostPopularMatch(matchesList);
         model.addAttribute("mostPopularMatch", mostPopularMatch);
-        return "home";
+        return "panel";
     }
 
     @RequestMapping("/enterBetIdForm")
@@ -74,7 +80,8 @@ public class HomeController {
         Long maxId = 0L;
         int noOfResults = 0;
         for (Match match : matchesList) {
-            if (match.getDate().isAfter(LocalDate.now()) && (match.getResult() == null || match.getResult().equals("")) && match.getResultTypeList().size() > noOfResults) {
+            if (match.getDate().isAfter(LocalDate.now()) && (match.getResult() == null
+                || match.getResult().equals("")) && match.getResultTypeList().size() > noOfResults) {
                 maxId = match.getId();
                 noOfResults = match.getResultTypeList().size();
             }
@@ -84,5 +91,26 @@ public class HomeController {
         } else {
             return null;
         }
+    }
+
+    @PostMapping("/addBetForm")
+    public String addBetForm(@RequestParam Long id, Model model) {
+        Match matchToBet = matchRepository.findByIdIs(id);
+        model.addAttribute("matchToBet", matchToBet);
+        model.addAttribute("bet", new Bet());
+        return "addBet";
+    }
+
+    @PostMapping("/addBet/{id}")
+    public String addBetForm(@PathVariable Long id, Bet bet, Model model) {
+        Match matchToBet = matchRepository.findByIdIs(id);
+        bet.setMatch(matchToBet);
+        bet.setId(null);
+        bet.setIdString(IdGenerator.generate(id));
+        bet.setTyperName(SecurityContextHolder.getContext().getAuthentication().getName());
+        betRepository.save(bet);
+        model.addAttribute("matchToBet", matchToBet);
+        model.addAttribute("bet", bet);
+        return "betDisplay";
     }
 }

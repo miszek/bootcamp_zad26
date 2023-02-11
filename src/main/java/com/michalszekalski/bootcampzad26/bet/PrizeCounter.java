@@ -1,4 +1,7 @@
-package com.michalszekalski.bootcamp_zad26;
+package com.michalszekalski.bootcampzad26.bet;
+
+import com.michalszekalski.bootcampzad26.match.Winner;
+import com.michalszekalski.bootcampzad26.match.Match;
 
 public class PrizeCounter {
 
