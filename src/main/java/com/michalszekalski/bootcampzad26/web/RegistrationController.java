@@ -2,10 +2,13 @@ package com.michalszekalski.bootcampzad26.web;
 
 import com.michalszekalski.bootcampzad26.user.UserRegistrationDto;
 import com.michalszekalski.bootcampzad26.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -24,7 +27,12 @@ class RegistrationController {
     }
 
     @PostMapping("/register")
-    String register(UserRegistrationDto userRegistrationDto) {
+    String register(Model model, @Valid @ModelAttribute("user") UserRegistrationDto userRegistrationDto, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", userRegistrationDto);
+            return "registration-form";
+        }
 
         if (userService.findCredentialsByEmail(userRegistrationDto.getEmail()).isEmpty()) {
             userService.register(userRegistrationDto);
